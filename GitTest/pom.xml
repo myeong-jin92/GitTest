@@ -4,6 +4,13 @@
   <artifactId>GitTest</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+
+	<repositories>
+		<repository>
+			<id>mesir-repo</id>
+			<url>https://maven.atlassian.com/3rdparty/</url>
+		</repository>
+	</repositories> 
   
   
   

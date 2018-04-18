@@ -12,6 +12,7 @@
 	</head> 
 	<body>
 		<c:url value="/showMessage.html" var="messageUrl" />
+		우왕~~~집에서 받았당!!! 다시 올려보자!!!
 		<a href="${messageUrl}">Click to enter</a>
 	</body>
 </html>
