@@ -9,11 +9,11 @@
 <body>
 	<br><br><br><br>
 	<ul>
-		<li><a href="./index.jsp">메인</a></li>
-		<li><a href="./main.ino">자유</a></li>
-		<li><a href="./memberInfoSearch.ino">인적사항</a></li>
-		<li><a href="./okmall.ino">okmallDIY</a></li>
-		<li>test5</li>
+		<li><a href="./main.ino">메인</a></li>
+		<li><a href="./main.ino">메인</a></li>
+		<li><a href="./main.ino">메인</a></li>
+		<li><a href="./main.ino">메인</a></li>
+		<li><a href="./main.ino">메인</a></li>
 	</ul>
 </body>
 </html>

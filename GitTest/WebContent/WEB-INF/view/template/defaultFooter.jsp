@@ -9,6 +9,12 @@
 <body>
 
 <br/><br/><br/><br/>
-	Copyright inosys jmw
+	제작자 : 홍명진	
+<br/>
+	제작 시작일 : 2018-04-18
+<br/>
+	제작 종료일 : 현재 진행중~~
+<br/>
+	
 </body>
 </html>
