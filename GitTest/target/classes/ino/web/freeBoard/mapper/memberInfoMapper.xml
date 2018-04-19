@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ino.web.freeBoard.mapper.MemberInfoMapper">
+	
+	<select id="memberInfoDetailByName" resultType="memberInfoDto" parameterType="String">
+		SELECT NAME, AGE, ADR, PHONE
+  		  FROM MEMBERINFO
+ 		 WHERE NAME = #{name}
+	</select>
+	
+</mapper>

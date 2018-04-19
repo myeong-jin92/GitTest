@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ino.web.freeBoard.mapper.OkMallMapper">
+	
+	
+	<select id="okMallGetList" resultType="okMallDto" parameterType="String"> <!-- resultType="ino.web.board.dto.BoardDto" -->
+		 SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+  		   FROM (SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+          		   FROM NIKE 
+        		  UNION ALL
+        		 SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+         		   FROM ADIDAS 
+        		  UNION ALL
+       			 SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+      		       FROM NEWBALANCE)
+      	  WHERE NAME LIKE  '%'||#{name}||'%'
+	</select>
+	
+	<select id="okMalldiscountGetList" resultType="okMallDto" parameterType="int"> <!-- resultType="ino.web.board.dto.BoardDto" -->
+		 SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+  		   FROM (SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+          		   FROM NIKE 
+        		  UNION ALL
+        		 SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+         		   FROM ADIDAS 
+        		  UNION ALL
+       			 SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+      		       FROM NEWBALANCE)
+      	  WHERE DISCOUNT = #{discount}
+	</select>
+	
+	<select id="okMallDetailByName" resultType="okMallDto" parameterType="String"> <!-- resultType="ino.web.board.dto.BoardDto" -->
+		 SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+  		   FROM (SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+          		   FROM NIKE 
+        		  UNION ALL
+        		 SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+         		   FROM ADIDAS 
+        		  UNION ALL
+       			 SELECT NAME, PRICE, DISCOUNT, BRAND, KIND
+      		       FROM NEWBALANCE)
+      	  WHERE NAME = #{name}
+	</select>
+	
+	<select id="okMallPointByUserno" resultType="okMallPointDto" parameterType="int"> <!-- resultType="ino.web.board.dto.BoardDto" -->
+		 SELECT USERNO, POINT
+  		   FROM OKMALLPOINT
+		  WHERE USERNO = #{userno}
+	</select>
+	
+	<select id="okMallCouponByUserno" resultType="okMallCouponDto" parameterType="okMallDto"> <!-- resultType="ino.web.board.dto.BoardDto" -->
+		 SELECT USERNO, COUPONNAME, DCPRICE, DCPERCENT
+  		   FROM OKMALLCOUPON
+ 		  WHERE USERNO = #{userno}
+  		    AND COUPONNAME LIKE '%'||#{brand}||'%'
+    		 OR COUPONNAME LIKE '%'||#{kind}||'%'
+	</select>
+	
+	<update id="updatepoint" parameterType="OkMallPointDto">
+		UPDATE OKMALLPOINT
+   		   SET POINT = POINT-#{point}
+ 		 WHERE USERNO = #{userno}
+	</update>
+	
+	<update id="delectcoupon" parameterType="double">
+  		DELETE
+		  FROM OKMALLCOUPON
+		 WHERE USERNO = 0
+   		   AND DCPRICE = #{dc}
+  			OR DCPERCENT = #{dc}*100 
+	</update>
+	
+	<insert id="okmallbasketInsert" parameterType="OkMallBasketDto">
+			INSERT INTO OKMALLBASKET(
+			            USERNO      ,
+			            NAME        ,  
+			            PRICE       ,
+			            DISCOUNT    ,
+			            BRAND       ,
+			            COUPONNAME  ,
+			            POINT       ,
+			            COUNT       ,
+			            COUPONDC    ,
+			            KIND)
+			VALUES (    0               
+					,	#{name}     
+			        ,   #{price}           
+			        ,   #{discount}              
+			        ,   #{brand}          
+			        ,   #{couponname}  
+			        ,   #{point}            
+			        ,   #{count}               
+			        ,   #{coupondc}             
+			        ,   #{kind})
+	</insert>
+	
+	<select id="getbasketUserno" resultType="OkMallBasketDto" parameterType="int"> <!-- resultType="ino.web.board.dto.BoardDto" -->
+		SELECT  USERNO      ,
+	            NAME        ,  
+	            PRICE       ,
+	            DISCOUNT    ,
+	            BRAND       ,
+	            COUPONNAME  ,
+	            POINT       ,
+	            COUNT       ,
+	            COUPONDC    ,
+	            KIND
+  		 FROM 	OKMALLBASKET
+ 		WHERE 	USERNO = #{userno} 
+	</select>
+	
+	<select id="okMallCouponByno" resultType="okMallCouponDto" parameterType="okMallDto"> <!-- resultType="ino.web.board.dto.BoardDto" -->
+		 SELECT USERNO, COUPONNAME, DCPRICE, DCPERCENT, KIND, BRAND
+  		   FROM OKMALLCOUPON
+ 		  WHERE USERNO = #{userno}
+	</select>
+	
+	<update id="updateBasket" parameterType="OkMallBasketDto">
+		UPDATE OKMALLBASKET
+   		   SET COUPONNAME  = #{couponname}  ,
+	           COUNT       = #{count} 		,
+	           COUPONDC    = #{coupondc} 
+ 		 WHERE USERNO = 0
+ 		   AND NAME = #{name}
+	</update>
+	
+	<update id="okmallbasketDelete" parameterType="String">
+  		DELETE
+		  FROM OKMALLBASKET
+ 		 WHERE USERNO = 0
+		   AND NAME = #{name}
+		   
+	</update>
+	
+	<insert id="okmallbuylistInsert" parameterType="OkMallBuylistDto">
+			INSERT INTO OKMALLBUYLIST(
+				         NUM
+				       , USERNO
+				       , NAME
+				       , PRICE
+				       , DISCOUNT
+				       , BRAND
+				       , KIND
+				       , COUNT
+				       , COUPONNAME
+				       , COUPONDC
+				       , POINT
+				       , BUYDATE
+				        )
+			VALUES 	   ( BUYLISTNUM.NEXTVAL
+					   , #{userno}
+				       , #{name}
+				       , #{price}
+				       , #{discount}
+				       , #{brand}
+				       , #{kind}
+				       , #{count}
+				       , #{couponname}
+				       , #{coupondc}
+				       , #{point}
+				       , SYSDATE
+				       )
+	</insert>
+	
+	<select id="getbuylistUserno" resultType="OkMallBuylistDto" parameterType="int">
+		SELECT   NUM
+			   , USERNO
+		       , NAME
+		       , PRICE
+		       , DISCOUNT
+		       , BRAND
+		       , KIND
+		       , COUNT
+		       , COUPONNAME
+		       , COUPONDC
+		       , POINT
+		       , TO_CHAR(BUYDATE,'YYYY/MM/DD hh24:mm') BUYDATE
+		  FROM OKMALLBUYLIST
+		 WHERE USERNO = #{userno}
+		 ORDER BY BUYDATE DESC
+	</select>
+	
+	<update id="refundpoint" parameterType="OkMallPointDto">
+		UPDATE OKMALLPOINT
+   		   SET POINT = POINT+#{point}
+ 		 WHERE USERNO = #{userno}
+	</update>
+	
+	<update id="delectbuylist" parameterType="OkMallPointDto">
+  		 DELETE
+		  FROM OKMALLBUYLIST
+ 		 WHERE USERNO = 0
+		   AND NAME = #{name}
+           AND NUM = #{num}
+	</update>
+	
+	<insert id="okmallcommentInsert" parameterType="OkMallProcomDto">
+			INSERT INTO PROCOM (
+					            COMNUM  ,
+					            COMVALUE ,
+					            COMGRADE  ,
+					            COMNAME ,
+					            COMDATE  )
+			VALUES( PROCOM_NUM.NEXTVAL
+				   , #{comvalue}
+				   , #{comgrade}
+				   , #{comname}
+				   , SYSDATE 
+				   )
+	</insert>
+	
+	<select id="getProcomByName" resultType="OkMallProcomDto" parameterType="String">
+		SELECT  COMNUM  	,
+		        COMVALUE 	, 
+		        COMGRADE 	 ,
+		        COMNAME 	,	
+		        TO_CHAR(COMDATE,'YYYY/MM/DD hh24:mm') COMDATE 
+		  FROM  PROCOM
+		 WHERE COMNAME = #{name}
+		 ORDER BY COMNUM DESC
+	</select>
+</mapper>
