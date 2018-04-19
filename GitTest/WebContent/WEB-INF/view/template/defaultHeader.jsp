@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="./main.ino"><h1>Inosys Sample Web HomePage</h1></a>
+	<h1>GIT으로 프로젝트 해보는 연습</h1>
 </body>
 </html>
