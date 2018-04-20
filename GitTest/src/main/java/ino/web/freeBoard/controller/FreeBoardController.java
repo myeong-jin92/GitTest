@@ -21,20 +21,58 @@ public class FreeBoardController {
 	@Autowired
 	private FreeBoardService freeBoardService;
 	
-	
+	//기본 페이지 이동 로그인 실행 페이지
 	@RequestMapping("/main.ino")
 	public ModelAndView main(HttpServletRequest request){		
 		ModelAndView mav = new ModelAndView();
-		
-		
+
+		mav.setViewName("main");
+
+		return mav;
+	}
+	//비회원 로그인 페이지 바로 게시판 메인으로 이동 권한제안..
+	@RequestMapping("/nomemberLogin.ino")
+	public ModelAndView nomemberLogin(HttpServletRequest request){		
+		ModelAndView mav = new ModelAndView();
+
 		List list = freeBoardService.freeBoardList();
-		//List list = freeBoardService.freeBoardList();
 		
 		mav.setViewName("boardMain");
 		mav.addObject("freeBoardList",list);
 		return mav;
 	}
-	
+	//회원가입 페이지 이동
+	@RequestMapping("/memberSign.ino")
+	public ModelAndView memberSign(HttpServletRequest request){		
+		ModelAndView mav = new ModelAndView();
+
+		mav.setViewName("main");
+
+		return mav;
+	}
+	//회원 로그인 DB확인후 진행 게시판으로 이동
+	@RequestMapping("/memberLogin.ino")
+	public ModelAndView memberLogin(HttpServletRequest request){		
+		ModelAndView mav = new ModelAndView();
+
+		List list = freeBoardService.freeBoardList();
+		
+		mav.setViewName("boardMain");
+		mav.addObject("freeBoardList",list);
+		return mav;
+	}
+	//게시판 메인 페이지
+	@RequestMapping("/boardmain.ino")
+	public ModelAndView boardmain(HttpServletRequest request){		
+		ModelAndView mav = new ModelAndView();
+		
+		List list = freeBoardService.freeBoardList();
+		
+		mav.setViewName("boardMain");
+		mav.addObject("freeBoardList",list);
+		return mav;
+	}
+
 	@RequestMapping("/freeBoardInsert.ino")
 	public String freeBoardInsert(){
 		return "freeBoardInsert";

@@ -9,11 +9,11 @@
 <body>
 	<br><br><br><br>
 	<ul>
-		<li><a href="./main.ino">메인</a></li>
-		<li><a href="./main.ino">메인</a></li>
-		<li><a href="./main.ino">메인</a></li>
-		<li><a href="./main.ino">메인</a></li>
-		<li><a href="./main.ino">메인</a></li>
+		<li><a href="./main.ino">로그인 페이지</a></li>
+		<li><a href="./boardmain.ino">게시판 메인</a></li>
+		<li><a href="./main.ino">추가??</a></li>
+		<li><a href="./main.ino">추가??</a></li>
+		<li><a href="./main.ino">추가??</a></li>
 	</ul>
 </body>
 </html>
